@@ -11,11 +11,11 @@ public class ReversedSequence implements CharSequence {
 
 
     }
-    public String reverseString (String string){
-        StringBuilder stringBuilder = new StringBuilder(string).reverse();
-        return  stringBuilder.toString();
-    }
 
+    public String reverseString(String string) {
+        StringBuilder stringBuilder = new StringBuilder(string).reverse();
+        return stringBuilder.toString();
+    }
 
 
     @Override
@@ -30,10 +30,11 @@ public class ReversedSequence implements CharSequence {
 
     @Override
     public CharSequence subSequence(int i, int i1) {
-        return string.subSequence(i,i1);
+        return string.subSequence(i, i1);
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return string;
     }
 }

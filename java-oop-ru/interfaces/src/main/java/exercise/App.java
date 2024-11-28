@@ -11,8 +11,10 @@ public class App {
     public static List<String> buildApartmentsList(List<Home> homesList, int n) {
         homesList.sort(Comparator.comparingDouble(Home::getArea));
         List<String> stringList = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            stringList.add(homesList.get(i).toString());
+        if (!homesList.isEmpty()) {
+            for (int i = 0; i < n; i++) {
+                stringList.add(homesList.get(i).toString());
+            }
         }
         return stringList;
     }
