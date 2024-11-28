@@ -1,7 +1,5 @@
 package exercise;
 
-import java.lang.CharSequence;
-
 // BEGIN
 public class ReversedSequence implements CharSequence {
     private String string;
@@ -12,8 +10,8 @@ public class ReversedSequence implements CharSequence {
 
     }
 
-    public String reverseString(String string) {
-        StringBuilder stringBuilder = new StringBuilder(string).reverse();
+    public String reverseString(String someString) {
+        StringBuilder stringBuilder = new StringBuilder(someString).reverse();
         return stringBuilder.toString();
     }
 
