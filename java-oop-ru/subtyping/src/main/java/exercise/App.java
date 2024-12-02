@@ -7,7 +7,8 @@ public class App {
         // key=value, key2=value2 -> keys = key, key2
         String default1 = "default";
         for (var key : keys) {
-            String newKey = list.get(key, default1);// получаем значение по старому ключу, которое ставится новым ключом
+            // получаем значение по старому ключу, которое ставится новым ключом
+            String newKey = list.get(key, default1);
             list.unset(key); // удаляем старый ключ
             list.set(newKey, key); // устанавливаем новый ключ, а старый ключ делаем значением
 
