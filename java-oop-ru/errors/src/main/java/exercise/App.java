@@ -1,7 +1,5 @@
 package exercise;
 
-import java.util.Map;
-
 // BEGIN
 public class App {
     public static void printSquare(Circle circle) throws NegativeRadiusException {

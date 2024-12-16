@@ -2,7 +2,8 @@ package exercise;
 
 // BEGIN
 public class NegativeRadiusException extends Exception {
-public NegativeRadiusException(String error){}
+    public NegativeRadiusException(String error) {
+    }
 
 }
 // END
