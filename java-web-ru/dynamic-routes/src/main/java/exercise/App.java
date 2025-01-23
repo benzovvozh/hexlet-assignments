@@ -25,7 +25,7 @@ public final class App {
         app.get("/companies/{id}", ctx -> {
             var number = ctx.pathParamAsClass("id", Integer.class).get();
 
-            if (number < 0 || number >= COMPANIES.size()) {
+            if (number < 0 || number > COMPANIES.size()) {
                 throw new NotFoundResponse("Company not found");
             }
             var result = new HashMap<>();
