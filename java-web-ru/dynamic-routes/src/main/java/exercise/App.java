@@ -23,10 +23,19 @@ public final class App {
 
         // BEGIN
         app.get("/companies/{id}", ctx -> {
-            var id = ctx.pathParamAsClass("id", Integer.class).get();
-            if (id > COMPANIES.size() || id < 0) {
+            var number = ctx.pathParamAsClass("id", Integer.class).get();
+
+            if (number < 0 || number >= COMPANIES.size()) {
                 throw new NotFoundResponse("Company not found");
-            } else ctx.json(COMPANIES.get(id)); ;
+            }
+            var result = new HashMap<>();
+
+            for (var company : COMPANIES) {
+                if (company.get("id").equals(number.toString())) {
+                    result.putAll(company);
+                }
+            }
+            ctx.json(result);
 
 
         });
