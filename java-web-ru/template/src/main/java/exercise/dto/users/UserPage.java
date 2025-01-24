@@ -10,5 +10,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserPage {
     private User user;
+
 }
 // END

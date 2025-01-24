@@ -34,11 +34,11 @@ public final class App {
         app.get("/users/{id}", ctx -> {
             var number = ctx.pathParam("id");
             var user = USERS.stream()
-                    .filter(c -> c.getId() == Long.getLong(number))
+                    .filter(c -> String.valueOf(c.getId()).equals(number))
                     .findFirst()
                     .orElseThrow(() -> new NotFoundResponse("User not found"));
             var userPage = new UserPage(user);
-            ctx.render("users/show.jte", model("userPage", userPage));
+            ctx.render("users/show.jte", model("page", userPage));
         });
         // END
 
