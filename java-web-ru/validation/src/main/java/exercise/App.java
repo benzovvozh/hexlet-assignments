@@ -35,8 +35,9 @@ public final class App {
         });
 
         // BEGIN
-        app.get("/articles/build", ctx -> {
-            ctx.render("articles/build.jte");
+        app.get("articles/build", ctx -> {
+            var page = new BuildArticlePage();
+            ctx.render("articles/build.jte", model("page", page));
         });
         app.post("/articles", ctx -> {
             String title = "";
@@ -45,7 +46,7 @@ public final class App {
                 title = ctx.formParamAsClass("title", String.class)
                         .check(value -> value.length() > 2, "Название статьи должно " +
                                 "быть длиннее 2 символов")
-                        .check(value -> value.equals(ArticleRepository.findByTitle(value)), "Статься с " +
+                        .check(value -> !(ArticleRepository.existsByTitle(value)), "Статься с " +
                                 "таким названием уже существует")
                         .get();
                 content = ctx.formParamAsClass("content", String.class)
@@ -56,7 +57,7 @@ public final class App {
                 ctx.redirect("/articles");
             } catch (ValidationException e) {
                 var page = new BuildArticlePage(title, content, e.getErrors());
-                ctx.render("articles/build.jte", model("page", page));
+                ctx.status(422).render("articles/build.jte", model("page", page));
             }
 
         });
