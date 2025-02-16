@@ -25,7 +25,7 @@ content = @`
         <div>
             <label>
                 <h1>Content</h1>
-                <textarea required name="content" rows="5" cols="25" value="${page.getContent()}"></textarea>
+                <textarea name="content" rows="5" cols="25" value="${page.getContent()}"></textarea>
             </label>
         </div>
         <input type="submit" value="Опубликовать" />

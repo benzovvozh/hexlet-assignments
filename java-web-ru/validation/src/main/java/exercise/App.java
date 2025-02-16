@@ -39,9 +39,10 @@ public final class App {
             var page = new BuildArticlePage();
             ctx.render("articles/build.jte", model("page", page));
         });
+
         app.post("/articles", ctx -> {
-            String title = "";
-            String content = "";
+            String title = ctx.formParam("title");
+            String content = ctx.formParam("content");
             try {
                 title = ctx.formParamAsClass("title", String.class)
                         .check(value -> value.length() > 2, "Название статьи должно " +
