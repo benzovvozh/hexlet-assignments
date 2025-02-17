@@ -41,30 +41,36 @@ public final class App {
         });
 
         app.post("/articles", ctx -> {
+            // Получаем значения из формы
             String title = ctx.formParam("title");
             String content = ctx.formParam("content");
+
             try {
-                title = ctx.formParamAsClass("title", String.class)
-                        .check(value -> value.length() > 2, "Название статьи должно " +
-                                "быть длиннее 2 символов")
-                        .check(value -> !(ArticleRepository.existsByTitle(value)), "Статься с " +
-                                "таким названием уже существует")
+                // Валидация title
+                String validatedTitle = ctx.formParamAsClass("title", String.class)
+                        .check(value -> value != null && value.length() > 2, "Название не должно быть короче двух символов")
+                        .check(value -> !ArticleRepository.existsByTitle(value), "Статья с таким названием уже существует")
                         .get();
-                content = ctx.formParamAsClass("content", String.class)
-                        .check(value -> value.length() > 10, "Статья не может быть короче 10 символов")
+
+                // Валидация content
+                String validatedContent = ctx.formParamAsClass("content", String.class)
+                        .check(value -> value != null && value.length() > 10, "Статья должна быть не короче 10 символов")
                         .get();
-                var article = new Article(title, content);
+
+                // Создание и сохранение статьи
+                var article = new Article(validatedTitle, validatedContent);
                 ArticleRepository.save(article);
                 ctx.redirect("/articles");
             } catch (ValidationException e) {
+                // Обработка ошибок валидации
+                // Используем значения из формы для title и content
                 var page = new BuildArticlePage(title, content, e.getErrors());
                 ctx.status(422).render("articles/build.jte", model("page", page));
             }
-
         });
 
         // END
-        //1
+
 
         return app;
     }
