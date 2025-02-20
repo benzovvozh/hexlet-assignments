@@ -9,9 +9,22 @@ import io.javalin.rendering.template.JavalinJte;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 public final class App {
+
+    private static String bytesToHex(byte[] hash) {
+        StringBuilder hexString = new StringBuilder(2 * hash.length);
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
 
     public static Javalin getApp() {
 
@@ -21,8 +34,9 @@ public final class App {
         });
 
         app.before(ctx -> {
-            var digest = MessageDigest.getInstance("SHA-256");
-            ctx.header("X-Response-Digest", digest.toString());
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedhash = digest.digest();
+            ctx.header("X-Response-Digest", bytesToHex(encodedhash));
         });
 
         app.get(NamedRoutes.rootPath(), RootController::index);
