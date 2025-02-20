@@ -1,5 +1,6 @@
 package exercise.controller;
 
+import exercise.dto.users.UsersPage;
 import org.apache.commons.lang3.StringUtils;
 import exercise.util.Security;
 import exercise.model.User;
@@ -22,8 +23,11 @@ public class UsersController {
     public static void main(Context ctx) {
         ctx.render("users/index.jte");
     }
-    public static void  users(Context ctx) {
-        ctx.render("users/userList.jte");
+
+    public static void users(Context ctx) {
+        var users = UserRepository.getEntities();
+        var page = new UsersPage(users);
+        ctx.render("users/userList.jte", model("page", page));
     }
 
     // BEGIN
