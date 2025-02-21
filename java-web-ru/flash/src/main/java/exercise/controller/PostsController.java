@@ -31,7 +31,7 @@ public class PostsController {
                     .get();
             var post = new Post(valName, body);
             PostRepository.save(post);
-            ctx.sessionAttribute("flash", "Post has been created");
+            ctx.sessionAttribute("flash", "Post was successfully created!");
             ctx.redirect(NamedRoutes.postsPath());
         } catch (ValidationException e) {
             var page = new BuildPostPage(name, body, e.getErrors());
