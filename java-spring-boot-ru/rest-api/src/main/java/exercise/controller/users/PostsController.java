@@ -22,11 +22,11 @@ import exercise.Data;
 public class PostsController {
     private List<Post> posts = Data.getPosts();
     @GetMapping("/users/{userId}/posts")
-    public List<Post> showPosts(int userId) {
-        var posts = Data.getPosts().stream()
+    public List<Post> showPosts(@PathVariable Integer userId) {
+        var posts1 = posts.stream()
                 .filter(p -> p.getUserId() == userId)
                 .toList();
-        return posts;
+        return posts1;
     }
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users/{userId}/posts")
